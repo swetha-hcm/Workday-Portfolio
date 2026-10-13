@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Swetha HCM Workday Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -58,6 +57,27 @@ section { display: flex; flex-direction: column; gap: 20px; }
 .back, .pager a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.92rem; }
 .back:hover, .pager a:hover { text-decoration: underline; }
 .pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* recruiter actions, featured cases, outcome line, flow diagram */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn { font: 500 0.92rem var(--body); padding: 9px 16px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: var(--bg); text-decoration: none; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:hover { opacity: 0.88; }
+.featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+.feat { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 6px; padding: 18px; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.feat:hover { border-color: var(--accent); }
+.feat small { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); }
+.feat h3 { font-size: 1rem; line-height: calc(1.15em + 1.5px); }
+.feat p { color: var(--muted); font-size: 0.92rem; }
+.feat .more { margin-top: auto; color: var(--accent); font-weight: 500; font-size: 0.9rem; }
+.outcome { font-size: 0.95rem; max-width: 70ch; }
+.outcome b { font-family: var(--mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-right: 8px; }
+.flow { display: flex; flex-direction: column; gap: 10px; overflow-x: auto; }
+.flow .row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; white-space: nowrap; }
+.flow .tag { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); width: 56px; flex: none; }
+.flow .box { border: 1px solid var(--line); border-radius: 4px; padding: 6px 10px; background: var(--bg); }
+.flow .box.hot { border-color: var(--accent); background: var(--accent-soft); }
+.flow .note { font-size: 0.8rem; color: var(--muted); white-space: normal; }
 
 /* header */
 header { display: flex; flex-direction: column; gap: 18px; }
@@ -121,7 +141,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
   <div class="nav-in">
     <a class="brand" href="#home" data-go="home">Swetha Pasham</a>
     <a href="#home" data-go="home" data-nav="home">Home</a>
-    <a href="#core-hcm" data-go="core-hcm" data-nav="module">Scenarios</a>
+    <a href="#scenarios" data-go="scenarios" data-nav="module">Scenarios</a>
     <a href="#approach" data-go="approach" data-nav="approach">Approach and metrics</a>
     <a href="#about" data-go="about" data-nav="about">Skills and experience</a>
   </div>
@@ -132,6 +152,10 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
     <span class="role">Workday HCM Analyst · Production Support (L2/L3) · Tampa, FL</span>
     <h1>Swetha Pasham</h1>
     <p class="intro">I keep a live Workday tenant running for 1,000+ workers. Most of my work is finding out why a transaction, a calculation or an approval did not behave the way the business expected, fixing it safely, and making sure the same ticket does not come back.</p>
+    <div class="actions">
+      <a class="btn" href="mailto:swethapasham79@gmail.com">Email me</a>
+      <button type="button" class="btn ghost" id="copyemail">Copy email address</button>
+    </div>
     <div class="facts">
       <div class="fact"><b>4+ yrs</b><span>Workday HCM production support</span></div>
       <div class="fact"><b>30+</b><span>Jira tickets resolved per month</span></div>
@@ -141,6 +165,12 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
   </header>
 
   <section>
+    <span class="label">Featured</span>
+    <h2>Three cases to start with</h2>
+    <div class="featured" id="featured"></div>
+  </section>
+
+  <section id="modules">
     <span class="label">Case files</span>
     <h2>Production support scenarios by module</h2>
     <p class="lede">Choose a module to see the issues I handled there: what was reported, what made it hard, how I found the root cause, and how I resolved it.</p>
@@ -184,7 +214,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
     <h2 id="modtitle"></h2>
     <p class="lede" id="modintro"></p>
     <div class="filters" id="filters" role="group" aria-label="Switch module"></div>
-    <div class="tools"><span id="count"></span><button type="button" id="expand">Close all</button></div>
+    <div class="tools"><span id="count"></span><button type="button" id="expand">Open all</button></div>
     <div class="cases" id="cases"></div>
     <div class="pager" id="pager"></div>
   </section>
@@ -212,14 +242,19 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
       <div class="job"><span class="when">Apr 2023 – Aug 2023</span><h3>Workday HCM and techno-functional support training</h3><p>Hands-on work with Advanced and Matrix reports, calculated fields, inbound and outbound EIBs and Core Connectors.</p></div>
       <div class="job"><span class="when">Jul 2021 – Aug 2022 · Remote</span><h3>Enterprise UX and Employee Experience Analyst, Publicis Sapient</h3><p>Configured Manager and Employee Self-Service layouts, dashboards and worklets. Applied WCAG standards, ran usability evaluations, and resolved L2/L3 Workday HCM tickets.</p></div>
     </div>
-    <p class="lede">Bachelor of Technology in Computer Science, Jawaharlal Nehru Technological University. Workday training in Core HCM, Business Process Framework, Reporting, Compensation, Recruiting, Integrations and Security.</p>
+  </section>
+
+  <section>
+    <span class="label">Credentials</span>
+    <h2>Education and certifications</h2>
+    <p class="lede">Bachelor of Technology in Computer Science, Jawaharlal Nehru Technological University.</p>
+    <p class="lede">Workday training in Core HCM, Business Process Framework, Reporting, Compensation, Recruiting, Integrations and Security.</p>
+    <p class="lede">Claude Code 101, Anthropic Academy: In Progress.</p>
   </section>
 
   </div>
 
   <footer>
-    <span class="label">Contact</span>
-    <span class="email">swethapasham79@gmail.com</span>
     <span class="lede">Tampa, FL · Open to Workday HCM analyst and production support roles</span>
   </footer>
 </div>
@@ -436,6 +471,40 @@ const INTRO = {
   "Release Testing": "R1 and R2 regression testing in Preview.",
   "Employee Experience": "Self-service portals, dashboards, worklets and accessibility, from my work at Publicis Sapient."
 };
+// One-line outcome per case, in the same order as CASES.
+const OUT = [
+  "Transfer completed with its original effective date, before payroll ran.",
+  "Every affected worker corrected, and the audit report returned zero rows.",
+  "Termination completed before the worker's last day.",
+  "Repeat approval tickets dropped by 35%.",
+  "Plan assigned to all affected workers with the correct effective dates.",
+  "Correct pay range and compa-ratio shown before the pay proposal was made.",
+  "The new hire received the full enrollment window.",
+  "The worker enrolled within the window.",
+  "Overtime validated for each worker before the payroll cutoff.",
+  "The team's time was approved before the lock and included in the pay run.",
+  "Balance corrected and validated period by period.",
+  "Worker back to active status, with the missed days entered and approved before payroll.",
+  "Job visible to external candidates on the career site.",
+  "Offer approved and sent to the candidate the same day.",
+  "The HR Partner sees the data, for their own organizations only.",
+  "File delivered over SFTP and receipt confirmed by the vendor.",
+  "Every worker updated exactly once, confirmed by reconciliation.",
+  "Tenure bands matched the raw service data.",
+  "Report and dashboard matched on one agreed headcount definition.",
+  "Differences fixed or communicated to users before the release weekend.",
+  "The most requested tasks are reachable from the home page.",
+  "The dashboard passed the same WCAG checklist it had failed.",
+  "The worklet shows data for managers at every level tested.",
+  "The step now tells employees what to enter, in plain language."
+];
+CASES.forEach((c, i) => { c.i = i; c.o = OUT[i]; });
+CASES[3].fig = `<div class="flow">
+  <div class="row"><span class="tag">Before</span><span class="box">Job change submitted</span>→<span class="box hot">Approval step, every time</span>→<span class="box">Completed</span></div>
+  <div class="row"><span class="tag">After</span><span class="box">Job change submitted</span>→<span class="box hot">Pay or job profile changing?</span>→<span class="box">Yes: approval step</span>/<span class="box">No: skip</span>→<span class="box">Completed</span></div>
+  <span class="note">Simplified diagram recreated for this portfolio.</span></div>`;
+const FEATURED = [3, 17, 20];
+const SHORT = { 3: "Job changes stuck in needless approvals", 17: "Workers placed in the wrong tenure band", 20: "Employees can't find self-service tasks" };
 let active = modules[0];
 
 const filters = document.getElementById("filters");
@@ -455,13 +524,15 @@ function render() {
     (next ? `<a href="#${slug(next)}" data-go="${slug(next)}">${next} →</a>` : "");
   count.textContent = `${shown.length} ${shown.length === 1 ? "case" : "cases"}`;
   list.innerHTML = shown.map((c, i) => `
-    <details class="case" open>
+    <details class="case" data-i="${c.i}">
       <summary>
         <span class="meta"><span class="mod">${c.m}</span><span class="pri ${c.p}">${c.p}</span><span class="toggle"></span></span>
         <h3>${esc(c.t)}</h3>
         <span class="symptom">${esc(c.issue)}</span>
+        <span class="outcome"><b>Outcome</b>${esc(c.o)}</span>
       </summary>
       <dl class="body">
+        ${c.fig ? `<dt>Flow</dt><dd>${c.fig}</dd>` : ""}
         <dt>Challenge</dt><dd>${esc(c.challenge)}</dd>
         <dt>Root cause</dt><dd>${esc(c.rca)}</dd>
         <dt>Troubleshooting</dt><dd><ol>${c.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol></dd>
@@ -469,7 +540,7 @@ function render() {
         <dt>Prevention</dt><dd>${esc(c.prevent)}</dd>
       </dl>
     </details>`).join("");
-  expand.textContent = "Close all";
+  expand.textContent = "Open all";
 }
 filters.addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
@@ -486,26 +557,44 @@ document.getElementById("tiles").innerHTML = modules.map(m => {
   return `<a class="tile" href="#${slug(m)}" data-go="${slug(m)}"><small>${n} ${n === 1 ? "case" : "cases"}</small><h3>${m}</h3><p>${INTRO[m]}</p></a>`;
 }).join("");
 
+document.getElementById("featured").innerHTML = FEATURED.map(i => {
+  const c = CASES[i];
+  return `<a class="feat" href="#${slug(c.m)}" data-go="${slug(c.m)}" data-case="${i}"><small>${c.m}</small><h3>${esc(SHORT[i] || c.t)}</h3><p>${esc(c.o)}</p><span class="more">Read the case →</span></a>`;
+}).join("");
+
 // One screen is visible at a time. A module route shows the module screen filled with that module's cases.
-function go(route, push) {
+// "scenarios" is the module overview on the home screen.
+function go(route, push, openCase) {
   const mod = modules.find(m => slug(m) === route);
+  const scen = route === "scenarios";
   const name = mod ? "module" : (route === "approach" || route === "about" ? route : "home");
   if (mod) { active = mod; render(); }
   document.querySelectorAll(".screen").forEach(s => { s.hidden = s.id !== "s-" + name; });
+  const nav = scen ? "module" : name;
   document.querySelectorAll("[data-nav]").forEach(a => {
-    if (a.dataset.nav === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    if (a.dataset.nav === nav) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   });
   if (push !== false) {
-    try { history.pushState(null, "", "#" + (mod ? route : name)); } catch (e) {}
-    window.scrollTo(0, 0);
+    try { history.pushState(null, "", "#" + (mod || scen ? route : name)); } catch (e) {}
   }
+  const target = scen ? document.getElementById("modules")
+    : (openCase != null ? list.querySelector(`details[data-i="${openCase}"]`) : null);
+  if (target) {
+    if (target.tagName === "DETAILS") target.open = true;
+    target.scrollIntoView({ block: "start" });
+    window.scrollBy(0, -70);
+  } else if (push !== false) window.scrollTo(0, 0);
 }
 document.addEventListener("click", e => {
   const a = e.target.closest("a[data-go]"); if (!a) return;
-  e.preventDefault(); go(a.dataset.go);
+  e.preventDefault(); go(a.dataset.go, true, a.dataset.case);
+});
+const copyBtn = document.getElementById("copyemail");
+copyBtn.addEventListener("click", () => {
+  const done = () => { copyBtn.textContent = "Copied"; setTimeout(() => { copyBtn.textContent = "Copy email address"; }, 2000); };
+  const fail = () => { copyBtn.textContent = "swethapasham79@gmail.com"; };
+  try { navigator.clipboard.writeText("swethapasham79@gmail.com").then(done, fail); } catch (e) { fail(); }
 });
 window.addEventListener("popstate", () => go(location.hash.slice(1), false));
 go(location.hash.slice(1), false);
 </script>
-
-</body></html>
