@@ -1,0 +1,511 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Swetha Pasham Workday Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a support runbook. Left-aligned single column, a filter bar of modules, and ticket-style case files that open to show symptom -> root cause -> fix. */
+:root {
+  --bg: #f3f6f7;
+  --surface: #ffffff;
+  --ink: #12262e;
+  --muted: #55696f;
+  --line: #d5dee1;
+  --accent: #0b6e75;
+  --accent-soft: #dff0f0;
+  --p1: #b3261e; --p2: #b25a00; --p3: #2f6690; --p4: #5d6b70;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1a1e; --surface: #15252b; --ink: #e6eff1; --muted: #9bb0b6; --line: #2a3d44;
+    --accent: #5fc9cf; --accent-soft: #17363a;
+    --p1: #ff8a80; --p2: #ffb866; --p3: #8ec5ef; --p4: #a9b8bd;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1a1e; --surface: #15252b; --ink: #e6eff1; --muted: #9bb0b6; --line: #2a3d44;
+  --accent: #5fc9cf; --accent-soft: #17363a;
+  --p1: #ff8a80; --p2: #ffb866; --p3: #8ec5ef; --p4: #a9b8bd;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 920px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 72px; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 500; }
+p { margin: 0; }
+.label { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+section { display: flex; flex-direction: column; gap: 20px; }
+.lede { max-width: 65ch; color: var(--muted); }
+
+/* navigation and screens */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.nav-in { max-width: 920px; margin: 0 auto; padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; }
+.nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 0.92rem; padding: 4px 0; border-bottom: 2px solid transparent; }
+.nav a:hover { color: var(--ink); }
+.nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+.nav a.brand { font-family: var(--display); font-weight: 700; font-size: 1.05rem; color: var(--ink); margin-right: auto; }
+.screen { display: flex; flex-direction: column; gap: 56px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.tile:hover { border-color: var(--accent); }
+.tile small { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); }
+.tile p { color: var(--muted); font-size: 0.92rem; }
+.back, .pager a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.92rem; }
+.back:hover, .pager a:hover { text-decoration: underline; }
+.pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* header */
+header { display: flex; flex-direction: column; gap: 18px; }
+.role { font-family: var(--mono); color: var(--accent); font-size: 0.9rem; }
+.intro { max-width: 62ch; font-size: 1.1rem; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-block: 1px solid var(--line); }
+.fact { padding: 16px 16px 16px 0; display: flex; flex-direction: column; gap: 2px; }
+.fact b { font-family: var(--display); font-size: 1.7rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.fact span { font-size: 0.85rem; color: var(--muted); }
+
+/* method */
+.method { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; counter-reset: step; }
+.method li { counter-increment: step; display: flex; flex-direction: column; gap: 6px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; }
+.method li::before { content: "Step " counter(step); font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+.method p { color: var(--muted); font-size: 0.95rem; }
+
+/* filter */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button, .tools button {
+  font: 500 0.85rem var(--body); color: var(--ink); background: transparent; border: 1px solid var(--line);
+  padding: 6px 12px; border-radius: 999px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.filters button:hover, .tools button:hover { border-color: var(--accent); }
+button:focus-visible, summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tools { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tools span { font-size: 0.85rem; color: var(--muted); }
+
+/* case files */
+.cases { display: flex; flex-direction: column; gap: 12px; }
+details.case { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+details.case summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+details.case summary::-webkit-details-marker { display: none; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: var(--mono); font-size: 0.75rem; }
+.mod { color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 3px; }
+.pri { border: 1px solid currentColor; padding: 1px 7px; border-radius: 3px; }
+.pri.P1 { color: var(--p1); } .pri.P2 { color: var(--p2); } .pri.P3 { color: var(--p3); } .pri.P4 { color: var(--p4); }
+.toggle { margin-left: auto; color: var(--muted); }
+details[open] .toggle::after { content: "Close"; } details:not([open]) .toggle::after { content: "Open case"; }
+.symptom { color: var(--muted); font-size: 0.95rem; max-width: 70ch; }
+.body { border-top: 1px solid var(--line); padding: 18px; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px 20px; }
+.body dt { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding-top: 4px; }
+.body dd { margin: 0; max-width: 68ch; }
+.body ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.body dd.fix { border-left: 3px solid var(--accent); padding-left: 12px; }
+@media (max-width: 600px) { .body { grid-template-columns: 1fr; gap: 4px; } .body dd { margin-bottom: 12px; } .toggle { display: none; } }
+
+/* skills, experience */
+.skills { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px 20px; margin: 0; }
+.skills dt { font-weight: 600; } .skills dd { margin: 0; color: var(--muted); }
+@media (max-width: 600px) { .skills { grid-template-columns: 1fr; gap: 2px; } .skills dd { margin-bottom: 12px; } }
+.jobs { display: flex; flex-direction: column; gap: 22px; }
+.job { display: flex; flex-direction: column; gap: 4px; }
+.job .when { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.job p { color: var(--muted); max-width: 68ch; }
+footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-direction: column; gap: 6px; }
+.email { font-family: var(--mono); user-select: all; }
+</style>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-in">
+    <a class="brand" href="#home" data-go="home">Swetha Pasham</a>
+    <a href="#home" data-go="home" data-nav="home">Home</a>
+    <a href="#core-hcm" data-go="core-hcm" data-nav="module">Scenarios</a>
+    <a href="#approach" data-go="approach" data-nav="approach">Approach and metrics</a>
+    <a href="#about" data-go="about" data-nav="about">Skills and experience</a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="screen" id="s-home">
+  <header>
+    <span class="role">Workday HCM Analyst · Production Support (L2/L3) · Tampa, FL</span>
+    <h1>Swetha Pasham</h1>
+    <p class="intro">I keep a live Workday tenant running for 1,000+ workers. Most of my work is finding out why a transaction, a calculation or an approval did not behave the way the business expected, fixing it safely, and making sure the same ticket does not come back.</p>
+    <div class="facts">
+      <div class="fact"><b>4+ yrs</b><span>Workday HCM production support</span></div>
+      <div class="fact"><b>30+</b><span>Jira tickets resolved per month</span></div>
+      <div class="fact"><b>98%</b><span>SLA compliance</span></div>
+      <div class="fact"><b>35%</b><span>fewer repeat approval tickets after one rule change</span></div>
+    </div>
+  </header>
+
+  <section>
+    <span class="label">Case files</span>
+    <h2>Production support scenarios by module</h2>
+    <p class="lede">Choose a module to see the issues I handled there: what was reported, what made it hard, how I found the root cause, and how I resolved it.</p>
+    <div class="tiles" id="tiles"></div>
+  </section>
+  </div>
+
+  <div class="screen" id="s-approach" hidden>
+  <section>
+    <span class="label">Approach</span>
+    <h2>How I work a ticket</h2>
+    <ol class="method">
+      <li><h3>Triage</h3><p>Set priority by impact. Anything touching payroll, pay or a worker's access moves to the front of the queue.</p></li>
+      <li><h3>Reproduce</h3><p>Open the worker, the transaction and the business process history. Confirm what happened before trusting the ticket description.</p></li>
+      <li><h3>Isolate the cause</h3><p>Decide which layer failed: worker data, configuration, eligibility, security or the integration. Check whether other workers are affected.</p></li>
+      <li><h3>Fix in Sandbox first</h3><p>Any configuration change is tested in Sandbox with real cases, including cases that should not change.</p></li>
+      <li><h3>Correct and reconcile</h3><p>Fix the affected transactions in Production and compare before and after with a report or an Excel reconciliation.</p></li>
+      <li><h3>Document and prevent</h3><p>Write the SOP or knowledge article, and add an audit report or rule so the issue is caught earlier next time.</p></li>
+    </ol>
+  </section>
+
+  <section>
+    <span class="label">Evidence</span>
+    <h2>How I measure outcomes</h2>
+    <p class="lede">Every figure on this page comes from Jira or a Workday report, counted the same way each month so the numbers can be compared.</p>
+    <dl class="skills">
+      <dt>98% SLA compliance</dt><dd>Jira filter of tickets resolved in the month. Tickets resolved inside the SLA target for their priority (P1 to P4), divided by all tickets resolved. Time spent waiting on the requester is excluded.</dd>
+      <dt>30+ tickets a month</dt><dd>Count of Jira tickets assigned to me and moved to Resolved in the calendar month, split by module label so I can see where the volume comes from.</dd>
+      <dt>35% fewer repeat approval tickets</dt><dd>Count of Jira tickets labelled as approval or routing questions for the job change process. I compared the three months before the condition rule went live with the three months after, using the same filter for both periods.</dd>
+      <dt>Fix confirmed</dt><dd>A ticket is closed only after a Workday audit report or an Excel reconciliation shows zero remaining exceptions, and the requester confirms the result.</dd>
+      <dt>Recurrence</dt><dd>Reopened tickets and new tickets with the same root cause are tracked by label. A cause that appears three times becomes a candidate for a configuration fix, an audit report or an SOP.</dd>
+    </dl>
+  </section>
+
+  </div>
+
+  <div class="screen" id="s-module" hidden>
+  <section>
+    <a class="back" href="#home" data-go="home">← All modules</a>
+    <span class="label">Case files</span>
+    <h2 id="modtitle"></h2>
+    <p class="lede" id="modintro"></p>
+    <div class="filters" id="filters" role="group" aria-label="Switch module"></div>
+    <div class="tools"><span id="count"></span><button type="button" id="expand">Close all</button></div>
+    <div class="cases" id="cases"></div>
+    <div class="pager" id="pager"></div>
+  </section>
+  </div>
+
+  <div class="screen" id="s-about" hidden>
+  <section>
+    <span class="label">Toolkit</span>
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>Workday modules</dt><dd>Core HCM, Compensation, Benefits, Time Tracking, Absence Management, Recruiting, Organizational Management, tenant maintenance.</dd>
+      <dt>Business process and security</dt><dd>Business Process Framework, condition and validation rules, routing and approvals, inbox task reassignment, role-based and user-based security groups, domain and business process security policies, ISU/ISSG.</dd>
+      <dt>Reporting</dt><dd>Advanced and Matrix reports, calculated fields including Evaluate Expression, dashboards, worklets, RaaS, BIRT, Excel (Pivot Tables, XLOOKUP, Power Query).</dd>
+      <dt>Data and integrations</dt><dd>EIB inbound and outbound, Core Connectors, data audits, reconciliation, XML, CSV, SFTP.</dd>
+      <dt>Support and testing</dt><dd>P1 to P4 triage, root cause analysis, SLA management, R1/R2 regression testing in Preview, UAT coordination, SOPs and knowledge articles, Jira, Confluence, SQL, Agile.</dd>
+      <dt>UX and accessibility</dt><dd>WCAG standards, MSS/ESS portal layout, user journey mapping, usability evaluations, inline help text.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <span class="label">Background</span>
+    <h2>Experience</h2>
+    <div class="jobs">
+      <div class="job"><span class="when">Sep 2023 – Present · Remote</span><h3>Workday HCM Analyst, Key Series, LLC</h3><p>Production support across Core HCM, Compensation, Benefits, Time Tracking and Absence. Business process and security troubleshooting, EIB loads and reconciliation, reporting, R1/R2 release testing, SOPs.</p></div>
+      <div class="job"><span class="when">Apr 2023 – Aug 2023</span><h3>Workday HCM and techno-functional support training</h3><p>Hands-on work with Advanced and Matrix reports, calculated fields, inbound and outbound EIBs and Core Connectors.</p></div>
+      <div class="job"><span class="when">Jul 2021 – Aug 2022 · Remote</span><h3>Enterprise UX and Employee Experience Analyst, Publicis Sapient</h3><p>Configured Manager and Employee Self-Service layouts, dashboards and worklets. Applied WCAG standards, ran usability evaluations, and resolved L2/L3 Workday HCM tickets.</p></div>
+    </div>
+    <p class="lede">Bachelor of Technology in Computer Science, Jawaharlal Nehru Technological University. Workday training in Core HCM, Business Process Framework, Reporting, Compensation, Recruiting, Integrations and Security.</p>
+  </section>
+
+  </div>
+
+  <footer>
+    <span class="label">Contact</span>
+    <span class="email">swethapasham79@gmail.com</span>
+    <span class="lede">Tampa, FL · Open to Workday HCM analyst and production support roles</span>
+  </footer>
+</div>
+
+<script>
+const CASES = [
+  { m: "Core HCM", p: "P2", t: "Transfer fails because the position does not allow the new job profile",
+    issue: "An HR Partner could not complete a Change Job for a transfer. Workday returned an error that the job profile was not valid for the position.",
+    challenge: "The effective date was inside the current pay period, so the transfer had to be completed before payroll ran. The HR Partner assumed it was a security problem.",
+    rca: "I compared the proposed job profile and location against the target position. The position's hiring restrictions listed only the old job profile, so the transaction was blocked by design.",
+    steps: ["Reproduced the error by proxying as the HR Partner in Sandbox.", "Ruled out security by confirming the HR Partner could start Change Job for other workers in the same organization.", "Opened the position and reviewed its hiring restrictions: job profile, location, worker type and time type.", "Confirmed with the HR Partner and the hiring manager that the new job profile was approved for that position."],
+    fix: "Edited the position restrictions to include the approved job profile, then the HR Partner resubmitted the transfer with the original effective date. I checked the worker's job details and organization assignments afterwards.",
+    prevent: "Added a step to the transfer SOP to check position restrictions first, and wrote a knowledge article that explains this error message in plain language." },
+
+  { m: "Core HCM", p: "P3", t: "New hires in a new supervisory organization have no cost center",
+    issue: "Finance reported that several recent hires were missing a cost center, and their costs were not landing where expected.",
+    challenge: "The hires were already completed, so every correction had to be effective-dated correctly without disturbing other organization assignments.",
+    rca: "All affected workers sat in one supervisory organization created during a reorganization. That organization had no default organization assignment for cost center, so nothing defaulted at hire.",
+    steps: ["Built a report of active workers with an empty cost center, grouped by supervisory organization.", "Saw that every row belonged to the same new organization.", "Compared its organization assignment defaults with a sibling organization that was working.", "Confirmed the correct cost center with Finance."],
+    fix: "Set the default cost center on the supervisory organization and corrected the organization assignments for the affected workers as of their hire dates. Re-ran the report to confirm zero rows.",
+    prevent: "Scheduled the missing-cost-center audit report, and added organization assignment defaults to the checklist used when creating a supervisory organization." },
+
+  { m: "Business Process", p: "P1", t: "Termination stuck in progress with nobody to approve it",
+    issue: "A termination was still In Progress the day before the worker's last day. Final pay and access removal depended on it completing.",
+    challenge: "The manager believed they had already approved it. Nobody could tell from their inbox where the process was waiting.",
+    rca: "The business process history showed the HR Partner approval step awaiting action with no assignee. The HR Partner role on that supervisory organization had been left unfilled after a staffing change.",
+    steps: ["Opened the event and read the process history step by step.", "Found the awaiting step and looked at who it was assigned to.", "Checked the role assignments on the worker's supervisory organization and its superior organization.", "Confirmed with HR leadership who should hold the role."],
+    fix: "Assigned the HR Partner role on the organization and reassigned the pending inbox task to the new role holder, who approved it the same day. The termination completed before the last day worked.",
+    prevent: "Built an audit report of supervisory organizations with unfilled key roles and added a role check to the offboarding steps for HR staff." },
+
+  { m: "Business Process", p: "P3", t: "Repeat tickets asking why a simple job change is still waiting for approval",
+    issue: "Managers kept raising tickets because job changes with no pay impact sat in an approval queue for days.",
+    challenge: "The approval step existed for a good reason. Removing it would have weakened the control on changes that do affect pay, so the fix had to be precise.",
+    rca: "I reviewed the ticket history and the business process definition together. The approval step had no condition rule, so it ran on every job change, including ones where compensation and job profile did not change.",
+    steps: ["Grouped three months of approval tickets by business process and step.", "Pulled the events behind the tickets and noted which ones had a compensation or job profile change.", "Reviewed the step's routing and existing condition rules in the business process definition.", "Agreed the exact criteria with HR and Compensation before changing anything."],
+    fix: "Added a condition rule so the approval step only runs when the change affects compensation or job profile. Tested in Sandbox with cases that should route and cases that should skip, then moved the change to Production. Repeat approval tickets dropped by 35%.",
+    prevent: "Documented the rule and its test cases in Confluence so the next person can see why the step is conditional." },
+
+  { m: "Compensation", p: "P2", t: "Bonus plan does not default for workers in a new job profile",
+    issue: "HR Partners reported that workers hired into a newly created job profile were not getting the bonus plan assigned during the compensation step.",
+    challenge: "Some hires had already completed without the plan. Those needed correcting without re-entering the whole hire.",
+    rca: "Plan assignment is driven by the plan's eligibility rule. The new job profile had been created without the management level the rule tests for, so those workers did not qualify.",
+    steps: ["Compared an affected worker with an unaffected peer in the same organization.", "Read the eligibility rule on the bonus plan and listed the fields it evaluates.", "Checked those fields on the new job profile and found the missing value.", "Ran a report of all workers in the job profile to size the impact."],
+    fix: "Corrected the job profile, confirmed eligibility now evaluated true, and submitted Request Compensation Change for the affected workers with the correct effective dates. Reconciled plan assignments against the report.",
+    prevent: "Added the fields used by compensation eligibility rules to the job profile creation checklist." },
+
+  { m: "Compensation", p: "P3", t: "Worker shows the wrong pay range after a location change",
+    issue: "After a relocation, a manager saw a salary range on the worker that did not match the range for the new location, and the compa-ratio looked wrong.",
+    challenge: "The manager was about to propose a pay change based on the wrong range.",
+    rca: "The worker's grade had location-based grade profiles. The new location was not included in any profile's eligibility, so the worker fell back to the default grade profile.",
+    steps: ["Viewed the worker's compensation and noted the grade and grade profile.", "Opened the compensation grade and reviewed each profile's eligibility rule.", "Confirmed the new location was missing from the rule.", "Checked for other workers at that location on the same grade."],
+    fix: "After Compensation confirmed the correct region for the location, the eligibility rule was updated and the workers' grade profile assignments were corrected. I confirmed the range and compa-ratio displayed correctly.",
+    prevent: "New location requests now include a compensation review step." },
+
+  { m: "Benefits", p: "P2", t: "New hire never receives a benefits enrollment event",
+    issue: "A new hire told HR they had no benefits enrollment task in their inbox and the enrollment window was running.",
+    challenge: "The worker could miss their enrollment window through no fault of their own.",
+    rca: "The hire had completed, but no enrollment event was created. The worker did not match any benefit group because the hire was keyed with the wrong time type and scheduled weekly hours.",
+    steps: ["Checked the worker's benefit event history and found no new hire event.", "Reviewed the Hire business process history to confirm the benefits subprocess ran.", "Looked at which benefit groups the worker belonged to and found none.", "Read the benefit group eligibility criteria and compared them with the worker's job data."],
+    fix: "The HR Partner corrected the job data, the worker then qualified for the right benefit group, and Benefits initiated the new hire enrollment event with the original hire date so the worker received the full window.",
+    prevent: "Added a weekly report of recent hires with no open or completed enrollment event." },
+
+  { m: "Benefits", p: "P3", t: "Move from part-time to full-time does not open benefits enrollment",
+    issue: "A worker who moved to full-time expected to be offered medical coverage but received no enrollment event.",
+    challenge: "The job change itself was correct, so nothing looked wrong on the worker's record.",
+    rca: "The benefit event type for job changes is triggered by specific job change reasons. The HR Partner had used a general data change reason that was not mapped to it.",
+    steps: ["Confirmed the worker now belonged to the full-time benefit group.", "Checked benefit event history: no event was created by the job change.", "Reviewed the configuration of the job change benefit event type and its triggering reasons.", "Compared against the reason used on the transaction."],
+    fix: "Benefits initiated the enrollment event manually for the worker using the job change date. The worker enrolled within the window.",
+    prevent: "Updated the job change guidance for HR Partners to list which reasons open a benefits event." },
+
+  { m: "Time Tracking", p: "P1", t: "Overtime missing from calculated time for a group of workers",
+    issue: "Two days before payroll, a supervisor reported that overtime was not showing on calculated time for several hourly workers.",
+    challenge: "Payroll cutoff was close, and I needed to know quickly whether this was a few workers or a whole population.",
+    rca: "The affected workers had all recently transferred. After the transfer they no longer met the eligibility condition of the time calculation that produces overtime, because of a job data value set during the move.",
+    steps: ["Compared reported and calculated time blocks for an affected worker and an unaffected one on the same schedule.", "Identified which time calculation should have produced overtime and read its eligibility condition.", "Checked the condition's fields on the affected workers and found the mismatch.", "Ran a report to list every worker with the same data condition."],
+    fix: "The job data was corrected, time was recalculated for the open period, and I validated calculated overtime against the reported hours for each worker before the payroll cutoff.",
+    prevent: "Added a pre-payroll check comparing reported hours over the weekly threshold with calculated overtime." },
+
+  { m: "Time Tracking", p: "P2", t: "Submitted time not approved because the manager is on leave",
+    issue: "Payroll flagged a team whose time was submitted but not approved on the morning of the time lock.",
+    challenge: "The approving manager was out and unreachable. Workers would be short-paid if nothing was done.",
+    rca: "The approval tasks were sitting in the manager's inbox. No delegation had been set before the leave started.",
+    steps: ["Ran the unapproved time report for the period to see the full list.", "Confirmed the time blocks themselves were valid, with no entry errors.", "Checked the manager's inbox delegations and found none.", "Identified the next-level manager as the right approver."],
+    fix: "Reassigned the pending approval tasks to the next-level manager, who reviewed and approved the time before the lock. Confirmed with Payroll that the team was included in the run.",
+    prevent: "Wrote a delegation guide for managers and scheduled the unapproved time report to go to supervisors the day before each lock." },
+
+  { m: "Absence", p: "P3", t: "PTO balance lower than the employee expects after a rehire",
+    issue: "A rehired employee raised a ticket saying their PTO accrual was lower than colleagues with the same tenure.",
+    challenge: "Balance questions are sensitive. I needed to show the worker and HR exactly how the number was produced.",
+    rca: "The accrual tier is based on length of service. The rehire had reset the service date used by the accrual, even though policy counts prior service.",
+    steps: ["Viewed the worker's time off results by period to see which accrual tier applied.", "Read the accrual's calculation and found the service date it uses.", "Compared the worker's hire, original hire and continuous service dates.", "Confirmed the policy on prior service with HR."],
+    fix: "HR corrected the service date, the accrual recalculated, and I validated the new balance period by period with the HR Partner before replying to the employee.",
+    prevent: "Added a service date check to the rehire SOP." },
+
+  { m: "Absence", p: "P2", t: "Worker is back from leave but still shows On Leave",
+    issue: "A returning worker could not enter time, and the manager could not see them as active.",
+    challenge: "The worker was working without being able to record hours, which would affect their pay.",
+    rca: "The leave had an estimated last day, but the return from leave was never entered. Workday keeps the worker on leave until the return is recorded.",
+    steps: ["Checked the worker's status and leave history.", "Found the open leave event with a past estimated end date.", "Confirmed the actual first day back with the manager.", "Checked whether time entry and absence accruals were affected for the gap."],
+    fix: "The HR Partner recorded the return from leave with the actual date. The worker then entered time for the missed days and the manager approved it before payroll.",
+    prevent: "Built a report of workers past their estimated leave end date with no return recorded, reviewed weekly by HR." },
+
+  { m: "Recruiting", p: "P3", t: "Approved job requisition is not visible on the career site",
+    issue: "A recruiter reported that an approved requisition was not showing to external candidates.",
+    challenge: "The requisition looked complete from the recruiter's side, so they assumed the career site was broken.",
+    rca: "The requisition was approved and open, but it had only been posted to the internal career site. The external posting was never created.",
+    steps: ["Opened the requisition and confirmed its status was Open.", "Reviewed its job postings and their start and end dates.", "Compared with another requisition that was visible externally.", "Checked the recruiter had access to post jobs."],
+    fix: "Walked the recruiter through posting the job to the external site and confirmed it appeared in a search on the career site.",
+    prevent: "Wrote a short job posting guide for recruiters covering internal and external sites and posting end dates." },
+
+  { m: "Recruiting", p: "P2", t: "Offer cannot move forward because the approval is unassigned",
+    issue: "A candidate's offer had been waiting for approval for several days and the recruiter was at risk of losing the candidate.",
+    challenge: "The recruiter could see the offer was pending but not who needed to act.",
+    rca: "The Offer business process was awaiting a role that had no one assigned on the requisition's supervisory organization.",
+    steps: ["Opened the candidate's Offer event and read the process history.", "Found the awaiting step and its role.", "Checked the role assignment on the hiring organization.", "Confirmed the right approver with HR."],
+    fix: "The role was assigned, the task was reassigned to the approver, and the offer was approved and sent to the candidate the same day.",
+    prevent: "Included the recruiting roles in the unfilled role audit report." },
+
+  { m: "Security", p: "P2", t: "HR Partner sees blank fields in a report that works for others",
+    issue: "A new HR Partner ran a custom report and several compensation columns came back empty.",
+    challenge: "The same report returned full data for other users, so the report itself looked fine.",
+    rca: "The empty fields were secured to a domain the HR Partner's security group could not view. A policy change adding the group had been saved, but the pending security policy changes were never activated.",
+    steps: ["Reproduced the result by running the report as the HR Partner in Sandbox.", "Identified the domain securing each blank field.", "Viewed the domain's security policy and the HR Partner's security groups.", "Found the pending change that had not been activated."],
+    fix: "After approval from the security administrator, the pending security policy changes were activated. The HR Partner re-ran the report and saw data for their own organizations only.",
+    prevent: "Added activation and a post-change test with a proxy user to the security change SOP." },
+
+  { m: "Integrations", p: "P1", t: "Scheduled integration fails overnight with an authentication error",
+    issue: "A scheduled outbound integration failed, and the downstream vendor did not receive its file.",
+    challenge: "The integration had run without changes for months, so there was no recent change to point at.",
+    rca: "The integration's messages showed an invalid credentials error. The Integration System User's password had expired because the account was not exempt from password expiration.",
+    steps: ["Opened the integration event and read its messages.", "Checked the ISU account's sign-on history.", "Reviewed the password rules and whether the ISU was listed as exempt from expiration.", "Confirmed the ISSG and domain permissions were unchanged."],
+    fix: "The security administrator reset the ISU password and added the account to the expiration exemption. I relaunched the integration, confirmed the file was delivered over SFTP, and confirmed receipt with the vendor.",
+    prevent: "Audited all ISU accounts for the same setting and documented the ISU setup standard." },
+
+  { m: "Integrations", p: "P2", t: "Inbound EIB load completes with failed rows",
+    issue: "An EIB load of organization assignment changes completed with errors and part of the population was not updated.",
+    challenge: "I had to correct and reload only the failed rows without duplicating the ones that succeeded.",
+    rca: "The error messages pointed to invalid references. The failed rows used a cost center ID that did not match the reference ID type the template expected, and some rows had dates in the wrong format.",
+    steps: ["Downloaded the error messages from the integration event.", "Matched each error to its spreadsheet row.", "Validated the reference IDs against a Workday extract using XLOOKUP.", "Checked date formats and effective dates on the failed rows."],
+    fix: "Corrected the IDs and dates, tested the corrected file in Sandbox, then loaded only the failed rows in Production. Finished with a pre-load and post-load reconciliation in Excel to confirm every worker was updated once.",
+    prevent: "Created a pre-load validation workbook that checks reference IDs and date formats before any file is loaded." },
+
+  { m: "Reporting", p: "P3", t: "Calculated field puts workers in the wrong tenure band",
+    issue: "An HRBP noticed that long-tenured workers were appearing in the lowest tenure band on a headcount report.",
+    challenge: "The report was used in leadership reviews, so the numbers had already been questioned.",
+    rca: "The tenure band was an Evaluate Expression calculated field. Conditions are evaluated top to bottom and the first true condition wins. A broad condition was listed first, so it caught everyone.",
+    steps: ["Added the underlying length of service field to a copy of the report to see the raw values.", "Tested the calculated field against individual workers with known tenure.", "Read the Evaluate Expression conditions in order.", "Identified the condition that matched too early."],
+    fix: "Reordered the conditions from most specific to least specific and set a default value. Validated the bands against an Excel pivot of the raw service data before replacing the field on the report.",
+    prevent: "Documented a build pattern for Evaluate Expression fields: most specific condition first, always set a default, always test edge values." },
+
+  { m: "Reporting", p: "P3", t: "Headcount report does not match the HR dashboard",
+    issue: "An HRBP reported that an Advanced report and a dashboard worklet showed different headcount for the same organization.",
+    challenge: "Both numbers were technically correct for what they measured. I needed to explain the difference clearly, not only fix it.",
+    rca: "The two reports used different data sources and filters. One included contingent workers and workers on leave. The other excluded them, and did not include subordinate organizations.",
+    steps: ["Listed the data source, filters and prompts of each report side by side.", "Exported both result sets and compared them in Excel to find the workers in one and not the other.", "Grouped the differences by worker type and status.", "Agreed a single headcount definition with the HRBP."],
+    fix: "Aligned the report's data source, filters and organization prompt with the agreed definition. Both outputs then matched, and I added the definition to the report description.",
+    prevent: "Published the headcount definition in Confluence and reused the same filter in later reports." },
+
+  { m: "Release Testing", p: "P3", t: "Regression testing an R1/R2 release in Preview",
+    issue: "Twice a year, a Workday release changes delivered behaviour. Anything that breaks in Production after the release becomes a support ticket.",
+    challenge: "The release window is fixed, and the regression suite has to cover every module in support.",
+    rca: "I read the release notes for the modules we use and mark the items that touch our business processes, reports, calculated fields and integrations.",
+    steps: ["Ran the regression script suite in Preview for hire, job change, termination, compensation, time entry and absence.", "Re-ran key custom reports and compared output with Production.", "Launched integrations in Preview and checked the output files.", "Logged each difference in Jira with screenshots and the expected result."],
+    fix: "Differences were either corrected in configuration before the release weekend or communicated to users in advance. After the release I repeated the critical scripts in Production.",
+    prevent: "Each release, new support issues from the past six months are added to the regression suite as test cases." },
+
+  { m: "Employee Experience", p: "P3", t: "Employees raise tickets because they cannot find everyday self-service tasks",
+    issue: "The support queue kept receiving the same questions: where to update an address, where to see a payslip, how to request time off. Nothing was broken, but employees could not find the task.",
+    challenge: "There was no error to investigate. The evidence was spread across many small tickets, and each one looked like a one-off.",
+    rca: "I grouped the how-do-I tickets by task and ran usability evaluations with corporate and operational employees. The most used tasks were not on the home page, so people had to know the exact task name to search for it.",
+    steps: ["Categorised the self-service tickets in Jira by the task the employee was trying to complete.", "Watched employees attempt the top tasks and noted where they stopped or searched.", "Mapped the journey for each task from sign-in to submission, counting the clicks.", "Compared the Employee Self-Service home page layout with the list of most requested tasks."],
+    fix: "Reconfigured the Employee Self-Service landing page so the most requested tasks appear as quick-action cards and worklets, ordered by how often they are used. Tested the layout in Sandbox with the same employees before it went live.",
+    prevent: "The task category is now recorded on self-service tickets, so the home page can be reviewed against real demand." },
+
+  { m: "Employee Experience", p: "P3", t: "Manager dashboard is hard to read and fails accessibility checks",
+    issue: "Managers said a Workday dashboard was hard to read, and an accessibility review flagged it against WCAG standards.",
+    challenge: "The dashboard combined several reports built by different people at different times, so there was no single owner and no consistent layout.",
+    rca: "I reviewed each worklet against WCAG criteria. Status was shown by colour alone, some text had low contrast, and the most important worklets sat below less important ones.",
+    steps: ["Listed every worklet on the dashboard and the report behind it.", "Checked contrast, labels and reading order against WCAG criteria.", "Navigated the dashboard by keyboard only to check the order of focus.", "Asked managers which three numbers they look for first."],
+    fix: "Reordered the worklets so the key measures come first, replaced colour-only status with labelled values, renamed worklets and columns in plain language, and removed duplicates. Validated the result against the same checklist.",
+    prevent: "Wrote a dashboard standard covering naming, order, contrast and labels, used for every later dashboard." },
+
+  { m: "Employee Experience", p: "P2", t: "Dashboard worklet shows no data for some managers",
+    issue: "Several managers opened a new team dashboard and saw an empty worklet, while other managers saw their team's data.",
+    challenge: "The dashboard had just launched to leadership, and the same worklet worked for the people who tested it.",
+    rca: "I compared a working manager with a failing one. The report behind the worklet had been shared with a security group that did not include all managers, and its organization prompt did not include subordinate organizations.",
+    steps: ["Reproduced the empty worklet by proxying as an affected manager in Sandbox.", "Ran the underlying report directly as that manager.", "Checked the report's sharing settings and the manager's security groups.", "Reviewed the report prompts and their default values."],
+    fix: "Shared the report with the correct manager security group and set the prompt default to include subordinate organizations. Tested with managers at three levels before confirming to stakeholders.",
+    prevent: "Added proxy testing with at least one user from each audience to the dashboard release checklist." },
+
+  { m: "Employee Experience", p: "P3", t: "Employees abandon a self-service task at the same step",
+    issue: "L2 tickets showed employees repeatedly failing to complete the same self-service transaction and asking HR to do it for them.",
+    challenge: "The business process was configured correctly. The error employees saw was accurate but did not tell them what to do.",
+    rca: "I traced the failed attempts in the business process history and mapped the user journey. Employees were stopped by a validation at one step, and the page gave no guidance on the required information.",
+    steps: ["Pulled the tickets for that transaction and read the error text employees quoted.", "Reviewed the validation rule on the business process step.", "Walked through the task as an employee in Sandbox, entering the values users typically entered.", "Confirmed with HR what employees needed to provide and why."],
+    fix: "Added inline help text to the step explaining what to enter, and reworded the validation message in plain language. Tested in Sandbox with employees who had raised the tickets.",
+    prevent: "Help text and plain-language validation messages became part of the review for any business process change." }
+];
+
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const modules = [...new Set(CASES.map(c => c.m))];
+const slug = m => m.toLowerCase().replace(/ /g, "-");
+const INTRO = {
+  "Core HCM": "Worker data, positions, supervisory organizations, cost centers and job profiles.",
+  "Business Process": "Stuck or failed steps, routing, approvals, condition rules and inbox tasks.",
+  "Compensation": "Plan eligibility, grades, grade profiles and compensation changes.",
+  "Benefits": "Enrollment events, benefit groups and eligibility after job changes.",
+  "Time Tracking": "Time entry, calculated time, overtime and approvals before payroll.",
+  "Absence": "Accruals, balances, eligibility and leave of absence.",
+  "Recruiting": "Job requisitions, postings and offer approvals.",
+  "Security": "Security groups, domain policies and access errors.",
+  "Integrations": "EIB loads, integration system users and data reconciliation.",
+  "Reporting": "Advanced and Matrix reports, calculated fields and data mismatches.",
+  "Release Testing": "R1 and R2 regression testing in Preview.",
+  "Employee Experience": "Self-service portals, dashboards, worklets and accessibility, from my work at Publicis Sapient."
+};
+let active = modules[0];
+
+const filters = document.getElementById("filters");
+const list = document.getElementById("cases");
+const count = document.getElementById("count");
+const expand = document.getElementById("expand");
+
+function render() {
+  filters.innerHTML = modules.map(m =>
+    `<button type="button" aria-pressed="${m === active}" data-m="${m}">${m}</button>`).join("");
+  const shown = CASES.filter(c => c.m === active);
+  document.getElementById("modtitle").textContent = active;
+  document.getElementById("modintro").textContent = INTRO[active] || "";
+  const i = modules.indexOf(active), prev = modules[i - 1], next = modules[i + 1];
+  document.getElementById("pager").innerHTML =
+    (prev ? `<a href="#${slug(prev)}" data-go="${slug(prev)}">← ${prev}</a>` : "<span></span>") +
+    (next ? `<a href="#${slug(next)}" data-go="${slug(next)}">${next} →</a>` : "");
+  count.textContent = `${shown.length} ${shown.length === 1 ? "case" : "cases"}`;
+  list.innerHTML = shown.map((c, i) => `
+    <details class="case" open>
+      <summary>
+        <span class="meta"><span class="mod">${c.m}</span><span class="pri ${c.p}">${c.p}</span><span class="toggle"></span></span>
+        <h3>${esc(c.t)}</h3>
+        <span class="symptom">${esc(c.issue)}</span>
+      </summary>
+      <dl class="body">
+        <dt>Challenge</dt><dd>${esc(c.challenge)}</dd>
+        <dt>Root cause</dt><dd>${esc(c.rca)}</dd>
+        <dt>Troubleshooting</dt><dd><ol>${c.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol></dd>
+        <dt>Resolution</dt><dd class="fix">${esc(c.fix)}</dd>
+        <dt>Prevention</dt><dd>${esc(c.prevent)}</dd>
+      </dl>
+    </details>`).join("");
+  expand.textContent = "Close all";
+}
+filters.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  go(slug(b.dataset.m));
+});
+expand.addEventListener("click", () => {
+  const open = expand.textContent === "Open all";
+  list.querySelectorAll("details").forEach(d => d.open = open);
+  expand.textContent = open ? "Close all" : "Open all";
+});
+
+document.getElementById("tiles").innerHTML = modules.map(m => {
+  const n = CASES.filter(c => c.m === m).length;
+  return `<a class="tile" href="#${slug(m)}" data-go="${slug(m)}"><small>${n} ${n === 1 ? "case" : "cases"}</small><h3>${m}</h3><p>${INTRO[m]}</p></a>`;
+}).join("");
+
+// One screen is visible at a time. A module route shows the module screen filled with that module's cases.
+function go(route, push) {
+  const mod = modules.find(m => slug(m) === route);
+  const name = mod ? "module" : (route === "approach" || route === "about" ? route : "home");
+  if (mod) { active = mod; render(); }
+  document.querySelectorAll(".screen").forEach(s => { s.hidden = s.id !== "s-" + name; });
+  document.querySelectorAll("[data-nav]").forEach(a => {
+    if (a.dataset.nav === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+  if (push !== false) {
+    try { history.pushState(null, "", "#" + (mod ? route : name)); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-go]"); if (!a) return;
+  e.preventDefault(); go(a.dataset.go);
+});
+window.addEventListener("popstate", () => go(location.hash.slice(1), false));
+go(location.hash.slice(1), false);
+</script>
+
+</body></html>
